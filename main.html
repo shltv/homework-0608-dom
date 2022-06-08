@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <title>Motify</title>
+    </head>
+    
+    <body>
+        <audio id="audio" loop>
+            <source src="assets/dance.mp3">
+        </audio>
+
+        <audio id="sample" loop>
+            <source src="assets/sample.wav">
+        </audio>
+
+        <dev id="backgroundVideo">
+            <video id="video" muted loop>
+                <source id="videoSrc" src="assets/night.mp4">
+            </video>
+            <progress id="progress" max="100" value="0">Progress</progress>
+        </dev>
+
+        <dev id="main">
+            <h1>Music Player</h1>
+
+            <dev id="buttons">
+                <dev id="player"><i class="fa-solid fa-circle-play fa-4x" id="playBtn" onclick="playMusic()"></i></dev>
+                <i class="fa-solid fa-video fa-4x" id="changeVideo" onclick="changeVideo()"></i>
+                <i class="fa-solid fa-circle-plus fa-4x" id="addSample" onclick="addSample()"></i>
+            </dev>
+        </dev>
+
+        <script>
+            let music = document.getElementById("audio")
+            let sample = document.getElementById("sample")
+            let playBtn = document.getElementById("player")
+            let video = document.getElementById("video")
+            let videoSrc = document.getElementById("videoSrc")
+            const progress = document.getElementById("progress")
+
+            function progressLoop() {
+                setInterval(function () {
+                    progress.value = Math.round((music.currentTime / music.duration) * 100);
+                });
+            }
+            
+            function playMusic(){
+                if (video.paused) {
+                    music.play()
+                    video.play()
+                    playBtn.innerHTML = '<i class="fa-solid fa-circle-pause fa-4x" id="playBtn" onclick="playMusic()"></i>'
+                }else{
+                    music.pause()
+                    video.pause()
+                    sample.pause()
+                    playBtn.innerHTML = '<i class="fa-solid fa-circle-play fa-4x" id="playBtn" onclick="playMusic()"></i>'
+                }
+            }addSample
+
+            function changeVideo(){
+                if (videoSrc.src.includes("nature.mp4")){
+                    videoSrc.src = "assets/night.mp4"
+                }else{
+                    videoSrc.src = "assets/nature.mp4"
+                } 
+
+                if (!video.paused){
+                    video.load()
+                    video.play()
+                }else{
+                    video.load()
+                }
+            }
+
+            function addSample(){
+                if (sample.paused) {
+                    sample.play()
+                }else{
+                    sample.pause()
+                }
+            }
+
+            progressLoop()
+        </script>
+    </body>
+</html>
